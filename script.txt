@@ -2,6 +2,7 @@
 NEW IDEA:
 create powershell script file 
 run it and output results to loot folder
+^can't windows automatically disables scripts
 
 
 
